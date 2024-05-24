@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+async function fgetList(){
+    let response = await fetch("http://localhost:8080/api/friends");
+    // response도 Promise라 한번 더 await 해주어야 함!
+    // axios는 이 부분을 편하게 만들었음
+    let rslt = await response.json();  // 받은 결과예 JSON.parse를 해서
+    console.log("결과1:",rslt);
+}
+
+async function fgetFriend(){
+    let response = await fetch("http://localhost:8080/api/friends/merong1");
+    // response도 Promise라 한번 더 await 해주어야 함!
+    // axios는 이 부분을 편하게 만들었음
+    let rslt = await response.json();  // 받은 결과예 JSON.parse를 해서
+    console.log("결과2:",rslt);
+}
+
+fgetList();
+fgetFriend();
+
+/* 자주 쓰는 기본 틀
+async function fCk(){
+        fetch("URL",{
+            method: "get", // *GET, POST, PUT, DELETE 등
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+}
+*/
+</script>
