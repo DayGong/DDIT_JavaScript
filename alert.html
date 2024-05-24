@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+     <button onclick="falert()">클릭</button>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function falert(){
+        alert();
+    }
+
+    // 가정-- 이미 alert를 너무 많이 써서 거길 다 고치기가 싫은 경우
+    // 하면 안되는 테크닉이므로 급할 때 사용, 원래 제공되는 걸 재정의 해서 사용하기!
+    window.alert = function(){
+        Swal.fire({
+            title: "공부",
+            text: "예쁜 alert창 띄우기",
+            icon: "question"
+        });
+    }
+</script>
