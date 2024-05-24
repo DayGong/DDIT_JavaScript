@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// ... Spread Operator(전개 연산자)
+function fCk(pMain,...pOpt){
+    console.log("1", pMain);
+    console.log("2", pOpt);
+}
+//fCk("A","B","C","D");
+
+var aaa = ["A","B"];
+var bbb = ["a","b","c","d"];
+
+// 배열 2개(사실 몇개여도 상관없음)를 합치기
+var ccc = [...aaa,"test",...bbb];
+// 이 표현을 프론트 프레임워크(react,vue,angular)에서 많이 씀
+console.log(ccc);
+
+</script>
