@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    이름<input type="text" id="txtName" value=""><br>
+    연세<input type="text" id="txtAge" value=""><br>
+    예명<input type="text" id="txtAlias" value=""><br>
+    <button onclick="fCkList()">친구리스트</button>
+    <button onclick="fCkSch()">친구조회</button>
+    <button onclick="fCkCre()">친구생성</button>
+    <button onclick="fCkUpd()">친구수정</button>
+    <button onclick="fCkDel()">친구삭제</button>
+    
+<script>
+    const txtName = document.querySelector("#txtName");
+    const txtAge = document.querySelector("#txtAge");
+    const txtAlias = document.querySelector("#txtAlias");
+
+    const fCkDel = function(){
+        $.ajax({
+            method:"delete",
+            url:`http://localhost:8080/api/friends/${txtName.value}`,
+            dataType:"text",
+            success:function(rslt){
+                console.log("결과:",rslt);
+            }
+        })
+    }
+
+    const fCkUpd= function(){
+        let friend = {
+            name:txtName.value,  // 이름은 이미 있는 값으로 쓴다는 가정
+            age:txtAge.value,
+            alias:txtAlias.value
+        }
+        $.ajax({
+            method:"put",
+            url:"http://localhost:8080/api/friends",
+            contentType:"application/json",
+            data: JSON.stringify(friend),
+            success:function(rslt){
+                console.log("결과:",rslt);
+            }
+        })
+    }
+
+    const fCkCre = function(){
+        let friend = {
+            name:txtName.value,
+            age:txtAge.value,
+            alias:txtAlias.value
+        }
+        console.log("전송데이터",friend);
+
+        $.ajax({
+            method:"post",
+            url:"http://localhost:8080/api/friends",
+            contentType:"application/json", // 보내는 문자열이 JSON형식임을 표시
+            data: JSON.stringify(friend),
+            dataType:"text",
+            success:function(rslt){
+                console.log("결과:",rslt);
+            }
+        })
+    }
+
+    const fCkSch = function(){
+        $.ajax({
+            type:"get",
+            url: `http://localhost:8080/api/friends/${txtName.value}`,
+            dataType:"json",
+            success:function(rslt){
+                console.log("친구:",rslt);
+            }
+        })
+    }
+
+    const fCkList = function(){
+        // http://localhost:8080/api/friends  톰캣  프로토콜+도메인명+포트번호 -> 오리진 구성요소
+        // http://localhost:8272              Apache
+        // ajax는 기본적으로 same-origin정책의 제한사항을 받음
+        // UI서버 + B/E(Restful방식) 으로 분리하여 구현하는 것이 점점 대세
+        $.ajax({
+          method:"get",
+          url:"http://localhost:8080/api/friends",
+          // data:"",  서버쪽으로 보낼 데이터
+          dataType:"json", // 서버에서 받은 데이터를 JSON.parse를 할 건지 안할 건지
+          // ajax로 받으면 결과를 변수에 받기 때문에, 이후 맘대로 조작이 가능
+          // 피싱사이트도 순식간에 만들 수 있음. 그래서 same-origin 정책이 디폴트!
+          success:function(pRslt){
+            console.log(pRslt);
+          }
+        })
+    }
+</script>
+</body>
+</html>
