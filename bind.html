@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <h1>Modern 자바스크립트에서 bind는 엄칭나게 중요!</h1>
+    <button id="btn">누르기</button>
+</body>
+<script>
+    function wrt(msg){
+        document.write(msg);
+    }
+    // wrt("<h1>확인</h1>");
+
+    const bindWrt = document.write.bind(document);  // 참조방식이어서 전혀 문제가 없음
+    bindWrt("<h1>Bind Test 확인!</h1>");
+  
+  /*
+  function fCk(pName){
+      console.log("this->", this);
+      alert(`${pName}`);
+      return;
+  }
+  
+  // bind 아주 중요, 사용문법은 call과 똑같으나, 실행이 다름!
+  const myBtn = document.querySelector("#btn");
+  var who = {who:"후후"}
+  // bind는 내부적으로 해당함수를 만들어서 그 함수의 포인터(FP, 함수이름)를 되돌려 줌!
+  myBtn.addEventListener("click", fCk.bind(who, "솜사탕")); //?
+  */
+</script>
