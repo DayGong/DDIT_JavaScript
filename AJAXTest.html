@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<div id="disp"></div>
+<button onclick="fXHR()">이렇게 쓰기 추천</button>
+<script>
+// 동기 vs 비동기 (화면 깜빡임, 안 깜빡임)
+const myDisp = document.querySelector("#disp");
+
+function fXHR(){
+    // 충돌 없도록 지역변수로 사용하는 것을 권장(전역변수는 되도록 피하기)
+    var xhr = new XMLHttpRequest();
+    xhr.open("get","/jsstudy/AJAX/syncTest.json",true); // true는 비동기 방식, false는 동기 방식
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            console.log("돌아온 결과", JSON.parse(xhr.responseText));
+            var vArr = JSON.parse(xhr.responseText);
+
+            var v_tbl = "<table border=1>";
+                v_tbl += "<tr><th>이름</th><th>역할</th>";
+            for(var i=0; i< vArr.length; i++){
+                v_tbl += "<tr>";
+                v_tbl += `<td>${vArr[i].name}</td>`;
+                v_tbl += `<td>${vArr[i].role}</td>`;
+                v_tbl += "</tr>"    
+            }
+            v_tbl += "</table>";
+
+            myDisp.innerHTML += v_tbl;
+        }
+    }
+    xhr.send();
+}
+</script>
