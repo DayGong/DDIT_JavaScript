@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<!--브라우져에서 모듈/조각 사용 -->
+<script type="module">
+    //"use strict"                       // module은 디폴트로 엄격모드로 동작
+    import inTest from "./inTestMod.js"  // 수입
+    console.log("확인: ", inTest);
+    //inTest.fck1();
+    //inTest.fck2();
+    //inTest.fck3();
+    var aaa = "수입 확인";
+</script>
+<script>
+    // 전역변수 module에서 가져다 써도 됨
+    var aaa = "가져다 쓰기 확인";
+</script>
+<script type="module">
+    alert(aaa);
+</script>
