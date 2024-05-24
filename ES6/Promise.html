@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 보통 비동기의 결과 처리를 콜백함수에 맡기는데, 비동기가 많이 사용되면서, 콜백안에 콜백, 그 안에 콜백등으로 코드가 복잡해지는 경우 다발
+// Hell Of Callback(콜백지옥)이라 불리는 상황발생! -> 대책 필요
+// 일반 웹개발자는 직접 Promise를 만들 일이 거의 없음
+
+// 비동기 처리의 가독성을 위해 출현
+var axios = {};               // 네임스페이스 빈 객체
+axios.get = function(url){    // axios에 get이라는 메소드 추가
+    // resolve는 실행이 잘 이행 되었을 때 사용(호출)
+    // reject은 실행이 잘 안되고 문제가 발생되었을 때(호출) 
+    return new Promise((res,rej)=>{  // AJAX를 Promisify(프라미스화)
+        let xhr = new XMLHttpRequest();
+        xhr.open("get",url,true);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4 && xhr.status == 200){
+                res(xhr.responseText);
+            }
+        }
+        xhr.send();
+        //res("성공");
+        //rej("에러 발생");
+    })
+}
+
+// async/await
+// 코드는 동기식으로 보이나, 실제는 비동기로 동작
+async function fCk(){
+    let rslt = await axios.get("메모.txt");
+    console.log("결과확인:",rslt);
+}
+fCk();  // 호출!
+console.log("비동기 확인"); // 이것이 먼저 찍히므로, 함수자체가 비동기로 동작하는 걸 확인!
+
+/* then catch 보다는 async/await가 대세
+axios.get("메모.txt").then((pRslt)=>{
+    console.log("확인1: ", pRslt);
+}).catch((pError)=>{
+    console.log("확인2: ", pError);
+}).finally(()=>{
+    console.log("무조건 실행!");
+})
+*/
+
+</script>
