@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+
+// DRY 원칙 -> Do not Repeat Yourself  : 반복하지 마!
+
+// js에서 변수명으로 쓸 수 있는 특수 문자 $, _
+// namespaece 단순히 객체 변수명으로 처리할 수 있다.
+var $= {};  // 빈 객체 생성
+
+$.ajax = function(pSet){     // pSet = {type:....}
+    var xhr = new XMLHttpRequest();
+    xhr.open(pSet.type, pSet.url, true);
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            console.log("결과: ", xhr.responseText);
+          
+            // 결과처리
+            if(pSet.dataType == "json"){
+                pSet.success(JSON.parse(xhr.responseText));
+            }else {
+                pSet.success(xhr.responseText);
+            }
+        }
+    }
+    xhr.send(); // 실행
+}
+
+$.ajax({
+    type:"get",
+    url:"/jsstudy/AJAX/test.txt",
+    success:function(pRslt){
+        console.log(pRslt);
+    }
+})
+
+$.ajax({
+    type:"get",
+    url : "/jsstudy/AJAX/syncTest.json",
+    dataType: "json",
+    success:function(rslt){
+        console.log(rslt);
+    }
+})
+
+/*
+ * 이 방법은 매개변수 갯수가 일정할 때는 좋지만, 그렇지 않다면 오류 가능성 높음
+  ajax("get", "/jsstudy/AJAX/syncTest.json", function(pRslt){
+      console.log("콜백처리:", pRslt);
+  });
+*/
+
+</script>
