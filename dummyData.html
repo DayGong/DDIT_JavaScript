@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 객체지향 DB의 대표 MongoDB 저장 방식을 흉내
+
+const dbName = "memberms"
+const tblName = "tb_member";  // 키값으로 쓸것임
+const tblGesi = "tb_gesi";
+
+let dbRepo = {};
+let tblMember = [];
+let tblGuls  = [];
+for(let i=1; i<=108; i++){
+    let member = {
+        name: "이름 " + i,
+        age:  Math.round(Math.random()*80) + 20,  // 20~100
+        alias: "별명 " + i
+    }
+    tblMember.push(member);
+}
+
+for(let i=1; i<=10; i++){
+    let gul = {
+        title: "제목 " + i,
+        writer:  "지은이 " + i,
+        cont: "내용 " + i
+    }
+    tblGuls.push(gul);
+}
+
+// 전체을 1개의 JSON으로 ..
+dbRepo[tblName] = tblMember;
+dbRepo[tblGesi] = tblGuls;
+
+localStorage.setItem(dbName,JSON.stringify(dbRepo)); // 로컬스토리지에 저장!
+// localStorage.setItem(tblName,JSON.stringify(tblRows)); // 로컬스토리지에 저장!
+
+</script>
