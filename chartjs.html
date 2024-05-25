@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="fRandom()">값 변화</button>
+    <!--chart.js는 아주 잘 만들어져서, 한번만 확인하면 그 사용법을 잊어버리기가 더 어려움 -->
+    <div style="width:400px">
+        <canvas id="myChart"></canvas>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const fRandom=function(){
+            let ranArr = [];
+            let ranArr1 = [];
+            for(let i=1; i<=7; i++){
+                let ranVal = Math.round(Math.random()*40) + 60;  // 60~ 100까지
+                let ranVal1 = Math.round(Math.random()*40) + 60; // 60~ 100까지
+                ranArr.push(ranVal);
+                ranArr1.push(ranVal1);
+            }
+            myChart.data.labels = ["A","B","C","D","E","F","G"];
+            myChart.data.datasets[1].type="line";  // 오직 line과 bar만 mix 가능
+            myChart.data.datasets[1].data = ranArr;
+            myChart.data.datasets[0].data = ranArr1;
+
+            myChart.update();
+            setTimeout(fRandom,1000);
+        }
+
+        const ctx = document.querySelector('#myChart');
+
+        // chart.js가 잘만들어진 이유 -> 생성자 리턴값에 옵션내용이 거의 다 들어있어서 직관적으로 값을 조정할 수 있음
+        const myChart = new Chart(ctx, {
+            type: 'bar', /* bar, line, pie, doughnut, radar */
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: 
+                [
+                    {
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '변화 추이',
+                        data: [100, 190, 30, 50, 20, 0],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {         // 인터넷 검색으로 해결
+                indexAxis:'y', // 이것만 넣으면 수평차트가 됨!(선택 사항!)
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // alert(myChart.data.datasets[0].data[1]);
+        // myChart.data.datasets[0].data[1] = 190;
+        // 기억해야 할 메소드 오직 1개 update() -> 다시 그려라(re-rendering)
+        myChart.update();
+    </script>
+</body>
+</html>
