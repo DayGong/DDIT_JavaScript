@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 자바스크립트에서 function키워드가 class키워드의 의미로도 사용됨
+// 정확히는 생성자(Constructor)함수라고 함!
+// 그냥 함수로 쓰일 때와 헷갈리니 잘 구분!
+function Panda(pName,pAge){
+    this.name = pName;         // 속성추가
+    this.age = pAge;
+  
+    // 메소드를 이렇게 쓰면 메모리가 낭비됨
+    // 왜? 메소드는 특별한 상태를 저장하지 않음
+    //(그저 도구로써의 의미, 필요한 순간에 입력에 대해 출력결과물을 만들어 주면 됨)
+    // 출력결과물이 없거나, 있다면 속성에 저장해서 상태를 저장하면 됨!
+    /*
+    this.getName = function(){ // 메소드추가
+        return this.name;
+    }
+    */
+    return this;  // 생성자로 쓰일 때는 return이 생략되어 있음(안 써도 된다는 이야기)
+}    
+
+// 메소드를 참조방식으로 공유하기 위해서는 prototype에 저장(선언)해야 함!
+Panda.prototype.getName = function(){
+    return this.name;
+}
+
+var pubao = new Panda("푸바오",3);
+var lebao = new Panda("러바오",11);
+
+console.log("체크1:",pubao);
+console.log("체크2:",pubao.getName());
+console.log("체크2:",lebao.getName());
+
+</script>
