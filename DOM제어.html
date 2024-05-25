@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="mjDiv"></div>
+    <!-- jQuery -->
+    <input type="text" data-mj-name="문제" class="mj" value="a"><br>   
+    <input type="text" class="mj" value="b"><br>    
+    <input type="text" data-mjname="test" class="mj" value="c"><br>    
+    <input type="text"  mj1 class="mj" value="d" onclick="fCK(this)"><br>    
+    <input type="text"  mj2 class="mj" value="e"><br>    
+    <input type="text"  mj1 class="mj" value="f"><br> 
+    <button onclick="fCK(this)">버튼</button>
+<script>
+    const mjDiv = document.querySelector("#mjDiv");
+  
+    // 생성
+    let kgb = document.createElement("h1");
+        kgb.innerHTML = "안녕하세요?";
+    mjDiv.appendChild(kgb);
+    console.log(kgb.parentElement);
+
+    function fCK(pThis){
+        console.log("체크:",pThis);
+    }
+
+    /*
+    let inps = document.querySelectorAll(".mj");
+    let $inps = $(".mj");
+    console.log("jQuery:",$inps.css("color","red"));
+
+    console.log(inps[2].dataset.mjname);
+
+    let mjs = document.querySelectorAll("[mj1]");  // 무조건 먼저 찾은 거 1개만
+    console.log(mjs[1].value);
+    */
+    /*  
+       jQuery(편의성) <  javascript, 
+       innerHTML -> html()
+       style     -> css()
+       속성      -> attr("속성명","값")
+       value     -> val((index,valu)=>{})
+    */
+
+</script>  
+</body>
+</html>
