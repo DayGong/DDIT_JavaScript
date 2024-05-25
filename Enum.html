@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 원시타입 vs 객체 타입!
+// 복사         참조!
+// Wrapper(불편한 원시타입을 편하게 사용하기 위한 객체)
+// JSON 배열식 접근법!
+
+"use strict"    // 엄격모드 적용
+
+const WEEEKDAYS = {
+    "월요일":1,
+    "화요일":2,
+    "수요일":3,
+    "목요일":4,
+    "금요일":5,
+    "토요일":6,
+    "일요일":7,
+    hihi : { name:"안녕하세요!"}
+}
+
+Object.freeze(WEEEKDAYS);  // 객체를 얼려버림!
+// 속성이 객체타입인건 별도로 한번더 얼려줘야 상수속성을 유지하게 됨! 
+Object.freeze(WEEEKDAYS.hihi);  // 객체를 얼려버림!
+
+// WEEEKDAYS.토요일=99;    // 안 바뀜
+WEEEKDAYS.hihi.name="반갑습니다!";
+console.log(WEEEKDAYS);
+
+</script>
