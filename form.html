@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 몇번을 써도 되지만 form안에 form을 쓰지않도록 조심! -->
+    <!-- form의 메소드는 get과 post 2개, ajax는? get,post,put,delete -->
+    <!-- get 조회, post 생성, put 수정, delete 삭제 -> restful 방식이라고 부름 -->
+    <!-- get은 엽서라 내용이 보이고, post는 편지라 내용이 안보임, file은 무조건 post -->
+    <!-- ?name=value&name=value queryString -->
+    <form action="" method="get" enctype="application/x-www-form-urlencoded">
+        이름 <input type="text" name="myName" id="myName" value="푸바오"><br>
+        별명 <input type="text" name="myAlias" id="myAlias" value="푸곰주"><br>
+        <button type="submit">전송</button> <!-- form태그 사이에 button태그 사용시 주의 -->
+    </form>
+
+    <form action="" method="get" enctype="application/x-www-form-urlencoded">
+        이름 <input type="text" name="myName" id="myName" value="" required pattern="010-[0-9]{4}-[0-9]{4}" ><br>
+        별명 <input type="text" name="myAlias" id="myAlias" value="" required ><br>
+        <button type="submit">전송</button> <!-- form태그 사이에 button태그 사용시 주의 -->
+        <!-- 아래 방식은 좋지 않음(쓸데 없이 코드가 낭비됨)-->
+        <button type="button" onclick="mySubmit()">전송</button>
+    </form>
+
+    <!-- onsubmit 전송 직전에 발생하는 이벤트 -->
+    <form action="" onsubmit="return fchk()" method="get" enctype="application/x-www-form-urlencoded">
+        이름 <input type="text" name="myName" id="myName" value="아이바오"><br>
+        별명 <input type="text" name="myAlias" id="myAlias" value="이뻐이뻐"><br>
+        <div>입력태그가 아님</div>
+        <button type="submit">전송</button> <!-- form태그 사이에 button태그 사용시 주의 -->
+    </form>
+    <script>
+        const myForm1 = document.forms[1];
+        // 체크 기능은 그대로 쓰면서, 전송은 막고, 최종적으로 아작스 처리
+        myForm1.addEventListener("submit",function(){
+            event.preventDefault(); // form의 전송기능(built-in) 막기
+            /*
+              아작스 작성
+            */
+        })
+
+        const mySubmit = function(){
+            document.forms[1].submit(); // 직접 전송!
+        }
+
+        const fchk=function(){
+            if(!document.forms[2].myAlias.value){
+                alert("값을 쓰세요");
+                document.forms[2].myAlias.focus(); // 커서를 해당 텍스트에
+                return false;
+            }else {
+                return true;
+            }
+        }
+
+        // javascript가 시작된 이유? 서버의 체크부하를 줄이기 위해서
+        // 사용자 입력의 유효성을 체크하기 위해서 만들어짐!(당시 vbscript도 있었음)
+
+        // form 접근법
+        const myForm2 = document.forms[2]; 
+        myForm2.myName.value ="Form2";  
+
+        const elems = myForm2.elements;  // elements에는 사용자 입력태그만 담김
+        // 이것을 이용하면 jQuery serialize메소드를 만들 수 있음
+        var serStr=""; 
+        for(let i=0; i<elems.length; i++){
+            console.log("확인: ",elems[i].name, elems[i].value);
+            serStr += elems[i].name + "=" + elems[i].value + "&";
+        }
+
+         serStr = serStr.substring(0,serStr.length-2);
+
+        //    URL 인코딩               디코딩
+        //    escape                  unescape
+        //    encodeURI               decodeURI
+        //    encodeURIComponent      decodeURIComponent
+
+        let testStr = "hello";
+        let encodeStr = encodeURIComponent(testStr);
+        // alert(decodeURIComponent(encodeStr)); // 원래 모습으로!
+
+    </script>
+</body>
+</html>
