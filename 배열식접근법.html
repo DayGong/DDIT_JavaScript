@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>{} 배열식 접근법 테스트</h1>
+<div id="disp"></div>
+<script>
+    var myDisp = document.querySelector("#disp");
+    var members = [
+        {name:"A",age:20,alias:"에이",level:"pos0"},
+        {name:"B",age:30,alias:"비",level:"pos1"},
+        {name:"C",age:40,alias:"씨",level:"pos3"},
+        {name:"D",age:50,alias:"디",level:"pos2"},
+        {name:"E",age:60,alias:"이",level:"pos3"},
+        {name:"F",age:10,alias:"에프",level:"pos1"},
+    ];
+
+    var position = {
+        "pos0":"회장님",
+        "pos1":"사장님",
+        "pos2":"대장님",
+        "pos3":"주인님",
+    }
+
+    //alert(position.pos0);
+    //alert(position[members[0].level]);
+    
+    // 화면 출력용 테이블 만들기
+    var tblStr = "<table border=1>";
+    tblStr += "<tr><th>순번</th><th>이름</th><th>나이</th><th>별명</th><th>직책</th></tr>";
+    
+    for(var i=0; i<members.length; i++){
+        var member = members[i];     // 표현을 단순하게 하기
+        // jsp 안에 쓰일 경우 ${} , 스크립트 변수면 앞에 \를 꼬옥 붙인당!
+        tblStr += `<tr>
+                        <td>${i}</td>
+                        <td>${member.name}</td>
+                        <td>${member.age}</td>
+                        <td>${member.alias}</td>
+                        <td>${position[member.level]}</td>
+                    </tr>`;
+
+        /* 이렇게 써도 무방!
+        tblStr += "<tr>";
+        tblStr += "<td>" + i + "</td>"; // 순번 
+        tblStr += "<td>" + members[i].name + "</td>"; // 이름
+        tblStr += "<td>" + members[i].age + "</td>";  // 나이
+        tblStr += "<td>" + members[i].alias + "</td>";  // 별명
+        tblStr += "<td>" + position[members[i].level] + "</td>";  // 직책
+        tblStr += "</tr>";
+        */
+    }
+    tblStr += "</table>";
+    myDisp.innerHTML = tblStr;  // 화면에 출력
+
+</script>    
+</body>
+</html>
