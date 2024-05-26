@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<style>
+    th,td{
+        text-align: center;
+    }
+</style>
+<h1>Sorting 문제 풀어보아요!</h1>
+<div id="disp"></div>
+<script>
+// 번역을 위한 테크닉
+const trer = {
+    name:"이름",
+    age:"나이" 
+}
+Object.freeze(trer); // 자바로 비교하면 enum 상수 선언과 같음 
+
+let sortArr = [
+    {name:"김",age: 30},
+    {name:"이",age: 40},
+    {name:"전",age: 100},
+    {name:"박",age: 11},
+    {name:"황",age: 21}
+];
+
+let nmTog = 1;   // 이름만 toggle
+let ageTog = 1;  // 나이만 toggle
+function fSort(colName){
+    //tr 가져오기
+    let trs = tbody.querySelectorAll("tr");// 유사배열
+    trs = Array.from(trs);                 // 배열로 변환, sort를 쓰기 위해서
+
+    const colOrder = {
+        "name":0,
+        "age":1
+    }
+
+    trs.sort((p,q)=>{
+        let a = p.children[colOrder[colName]];
+        let b = q.children[colOrder[colName]];
+
+        if(colName == "age"){  // 숫자-> 일단 그냥 오름차순만
+            return  ageTog*(a.innerHTML - b.innerHTML);           
+        }
+
+        if(a.innerHTML > b.innerHTML){  // 글자 -> 그냥 오름차순만
+            return nmTog*272;
+        }
+        return -nmTog*272;
+    })
+
+    nmTog=-1*nmTog;
+    ageTog=-1*ageTog;
+
+    trs.forEach((tr,index)=>{
+        tbody.appendChild(tr);
+    })
+
+}
+
+let tblStr = "<table border=2 width=300>";
+    tblStr += "<thead><tr>"
+    for(let col in sortArr[0]){
+        tblStr += `<th onclick=fSort('${col}') >${trer[col]}</th>`;
+    }    
+    tblStr += "</tr></thead><tbody id=juhee >";
+    for(let i=0; i<sortArr.length; i++){
+        let arr = sortArr[i];
+        tblStr += `
+            <tr>
+                <td>${arr.name}</td>
+                <td>${arr.age}</td>
+            </tr>
+        `;
+    }
+    tblStr += "</tbody></table>";
+    disp.innerHTML = tblStr;
+
+    // table이 만들어진 뒤에 접근
+    const tbody = document.querySelector("#juhee");
+
+</script>
