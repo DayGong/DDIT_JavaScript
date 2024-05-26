@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+   // callback, this제어 부분은 꼭 확인
+
+  // 제어 메소드 call,apply,bind 제공해줌(this에 대한 직접 제어가 가능!)
+  function fCheck(pArg1,pArg2){
+    console.log("매개변수값:",pArg1,pArg2);
+    console.log("this 확인: ",this);
+  }   
+
+  // call 과 apply가 다른 점은 apply는 무조건 매개변수값들을 []에 담아서 배열 1개만 넘겨야 함
+
+  fCheck.call({name:"A"},"첫째 매개변수","둘째 매개변수");
+  fCheck.call(["ㄱ","ㄴ","ㄷ","ㄹ"],"첫째 매개변수","둘째 매개변수");
+
+  fCheck.apply({name:"B"},["첫째 매개변수","둘째 매개변수"]);
+  fCheck.apply(["b","e","a","r"],["첫째 매개변수","둘째 매개변수"]);
+
+  //fCheck.call(document);
+
+</script>
