@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+ // ... 엄칭 많이 사용됨
+ function fCk(a,...b){
+    console.log("a:",a);
+    console.log("b:",b);
+} 
+// fCk("A","B","C","D","E");
+
+let aaa = ["A","B","C","D"];
+let bbb = ["a","b","c"];
+
+let ccc = [...bbb,...aaa];
+//console.log("ccc",ccc);
+
+let kuk = {
+  name:"봉준호",
+  age: 27,
+  stageName:"설국열차"
+}
+
+let gs = [
+  {name:"편의점",age:100}
+];
+
+gs = [...gs,{name:"믿음",age:10}];  //배열에 값 추가
+console.log("엄청 사용됨!",gs);
+
+
+// 복사와 속성 수정을 함께
+let kuk1 = {...kuk,name:"소망"};
+//console.log("아주 많이 사용됨",kuk1);
+
+function objCopy(obj){  // 객체 복사 함수
+  return {...obj};
+}
+
+let copy1 = objCopy(kuk);
+copy1.name="복사";
+let copy2 = objCopy(kuk);
+copy2.stageName="복사복사";
+
+/*
+console.log("kuk",kuk);  // 원본
+console.log("copy1",copy1); // 복사본1
+console.log("copy2",copy2); // 복사본2
+*/
+
+/*
+let test = {...kuk};
+console.log("test",test); 
+*/
+
+</script>
