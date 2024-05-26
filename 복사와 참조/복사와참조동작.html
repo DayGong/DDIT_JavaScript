@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <input type="text"  id="txt" value="해피">
+</body>
+<script>
+/* 복사
+  var happy = document.querySelector("#txt").value;  // 복사 string은 원시타입
+  happy="행복한 우리집";
+*/
+/* 참조
+  var happy = document.querySelector("#txt");       // 참조 input태그는 객체타입
+  happy.value = "행복한 우리집";
+*/
+
+// 원시타입은 복사, 객체타입은 참조
+var aaa = "ㄱ";
+var bbb = aaa;  // 복사기로 복사, 따로 존재
+bbb = "ㄴ";
+
+//alert(aaa); // ?? 이소망
+
+
+var ccc = {name:"ㄷ"};
+var roze = ccc;  // 참조방식으로 동작(쉽게 그냥 별명이라 생각)
+
+roze.name="로제";
+
+//alert(ccc.name); //? -> 로제
+
+</script>
