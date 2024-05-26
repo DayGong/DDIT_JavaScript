@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // this , 이것 사물대명사(가리키는 것)
+    var t = "test";          // 실제 window객체에 t 속성을 추가하는 것과 같음
+
+    function fCheck(){       // 실제 window객체에 fCheck 메소드를 추가하는 것과 같음
+        console.log("this:",this);
+    }
+    //fCheck();  // 앞에 window가 생략되어 있음
+
+    var hi = {name:"안녕하세요"};
+    hi.check = fCheck;  // 문법 문제 없음  복사 or 참조
+    hi.check();  //  this -> hi
+    // 이렇게 this가 바뀌는 것에 대해 기존 개발자들의 반발!
+    // 이해는 되나 매우 불편함!
+
+</script>
