@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// Arrow function(화살표함수), 나중에 추가됨!
+// 자바 람다와 관련없음! (의미가 다름), 겉모습만 비슷
+
+const somang = function(pName){
+    return pName + " 안녕!";
+}
+
+const somang2 = (pName)=>{   
+    return pName + " 안녕!";
+}
+
+// 위 somang2는 매개변수가 1개 라서 () 생략 가능
+const somang3 = pName => {
+    return pName + " 반가워!";
+}
+
+// 최종 모습!
+const somang4 = pName => pName + " 즐거워!!";
+
+alert(somang4("믿음"));
+
+//alert(somang("소망"));
+//alert(somang2("사랑"));
+
+// 1개만 기억, 매개변수가 1개면 () 생략가능
+// {} 안에 return문 1개밖에 없다면 {}도 생략가능
+
+</script>
