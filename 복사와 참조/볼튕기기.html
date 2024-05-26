@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #myBall {
+        position:absolute;
+        width:60px;
+        height:60px;
+        background-image: url("https://images.chosun.com/resizer/4NGzT3zvGDasmJqMnBs5KOt93_Q=/530x935/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/U5X5HNWNIGEB56W4KWTRURXZDQ.jpg") ;
+        background-size: cover;
+        border-radius: 50%;
+    }
+</style>
+</head>
+<body>
+    <div id="myBall"></div> 
+    <button onclick="fStart()">시작</button> 
+    <button onclick="fStop()">멈춤</button> 
+<script>
+    const myBall = document.querySelector("#myBall");
+    // 화면 넓이와 화면높이 window.innerWidth, window.innerHeight
+    
+    // 스크립트를 이용해서 left값 초기화
+    if(!myBall.style.left){              // 현재 값이 지정되어 있지 않다면
+            myBall.style.left = "0px";   // 초기화
+            myBall.style.top = "100px";
+    }
+
+    const rightEnd = window.innerWidth;
+    const bottomEnd = window.innerHeight;
+    let mvHor = 5;    // 수평 움직임
+    let mvVer = 5;    // 수직 움직임
+    let rotGak = 0;
+    let timerId; 
+
+    // Proxy(대리인!) 패턴
+    // 로직이 막혔을 때, 머리에 proxy단어를 떠올리면 해결되는 경우가 많음
+    let isStart = false;  // 초기값 아직 시작안된 상태
+    const fStart=function(){
+        if(!isStart){
+            fMove();
+            isStart = true;
+        }
+    }
+
+    const fStop = function(){
+        if(timerId){        // 타이머가 있을 때만 
+            clearTimeout(timerId);
+            isStart=false;
+        }
+    }
+
+    const fMove = function(){
+        rotGak = rotGak + 10;
+        myBall.style.transform = "rotate(" + rotGak + "deg)";
+        myBall.style.left = parseInt(myBall.style.left) + mvHor + "px";
+        myBall.style.top = parseInt(myBall.style.top) + mvVer + "px";
+        let ballLeft = parseInt(myBall.style.left);
+        let ballRight = ballLeft+60;
+        let ballTop = parseInt(myBall.style.top);
+        let ballBottom = ballTop + 60;
+        //오른쪽 || 왼쪽에 부딪히면 방향반대
+        if(ballRight >= rightEnd || ballLeft <=0 ){  // 충돌
+            mvHor = -mvHor;  // 산술부호를 이용해서 방향전환
+            myBall.style.transform = "skewY(45deg)";
+        }
+
+        //아래 || 위에 부딪히면 방향반대
+        if(ballBottom >= bottomEnd || ballTop <=0 ){  // 충돌
+            mvVer = -mvVer;  // 산술부호를 이용해서 방향전환
+            myBall.style.transform = "skewX(45deg)";
+        }
+
+        timerId = setTimeout(fMove,30);
+        /* 이렇게하면 되는 것 처럼 보이지만(사용자는 속을 수 있어), 자원을 만들었다 지웠다 반복
+          clearTimeout(timerId);
+          timerId =setTimeout(fMove,30);  // 재귀호출
+        */
+    }
+    //fMove();
+</script>  
+</body>
+</html>
