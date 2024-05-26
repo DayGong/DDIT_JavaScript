@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #acja {
+        width:300px;
+        height:50px;
+        border:2px groove pink;
+        position: relative;
+        overflow: hidden;
+    }
+    #inAcja {
+        position: absolute;
+        width:300px;
+        height:50px;
+        border:1px solid gray;
+        line-height: 50px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1>가끔씩 올리기!</h1>
+<div id="acja" onmouseover="fCk()" onmouseout="fCk2()">
+    <div id="inAcja">
+        <div id="prom">홍보1</div>
+        <div id="prom">홍보2</div>
+        <div id="prom">홍보3</div>
+        <div id="prom">홍보4</div>
+    </div>
+</div>
+<script>
+    const fCk=()=>{
+        isMouseOver=true;
+    }
+
+    const fCk2= ()=>{
+        isMouseOver=false;
+    }
+
+    const dhAcja = document.querySelector("#acja");
+    const dhInAcja = document.querySelector("#inAcja");
+    let isMouseOver=false;
+    const fLoop = (cnt)=>{
+        if(isMouseOver) return;
+        if(!cnt) cnt = 0;
+        cnt++;
+        console.log("체크:",cnt);
+        if(cnt >= 50 ) return
+        if(!dhInAcja.style.top) dhInAcja.style.top="0px"; 
+        dhInAcja.style.top = parseInt(dhInAcja.style.top) - 1 + "px";
+        setTimeout(fLoop,30,cnt);
+    }
+
+    const fCont = () =>{
+        setInterval(() => {
+            fLoop();
+        }, 2000);
+    }
+
+    document.addEventListener("DOMContentLoaded",fCont);
+</script>    
+</body>
+</html>
