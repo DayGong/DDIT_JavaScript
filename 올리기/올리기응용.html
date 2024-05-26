@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    #acja {
+        width:300px;
+        height:50px;
+        border:2px groove pink;
+        position: relative;
+        overflow: hidden;
+    }
+    #dhF {
+        top:0px;
+    }
+    #dhB {
+        top:51px;
+    }
+    .dbCommon {
+        position: absolute;
+        width:300px;
+        height:50px;
+        border:1px solid gray;
+        line-height: 50px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<h1>가끔씩 올리기!</h1>
+<div id="acja">
+    <!-- 요걸 2개만 가지고 아껴서 활용 -->
+    <div id="dhF" class="dbCommon">홍보1</div>
+    <div id="dhB" class="dbCommon">홍보2</div>
+</div>
+<script>
+    const dhAcja = document.querySelector("#acja");
+    const dhF = document.querySelector("#dhF");
+    const dhB = document.querySelector("#dhB");
+
+    const names = ["A","B","C","D","E","F","G"];
+
+    const fLoop = ()=>{
+        if(!dhF.style.top) {
+            dhF.style.top="0px";
+            dhB.style.top="51px";
+        }
+        
+        dhF.style.top = parseInt(dhF.style.top) - 1 + "px";
+        dhB.style.top = parseInt(dhB.style.top) - 1 + "px";
+
+        if(parseInt(dhF.style.top)+50 < 0){
+            dhF.style.top = "51px";
+            dhF.innerHTML = names[Math.floor(Math.random()*names.length)] + "만세";
+        }
+        if(parseInt(dhB.style.top)+50 < 0){
+            dhB.style.top = "51px";
+            dhB.innerHTML = names[Math.floor(Math.random()*names.length)] + "만세";
+        }
+        setTimeout(fLoop,50);
+    }
+
+    document.addEventListener("DOMContentLoaded",fLoop);
+</script>    
+</body>
+</html>
