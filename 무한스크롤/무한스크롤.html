@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<h1>무한스크롤 핸드폰에 많이 적용</h1>
+<h1>무한스크롤</h1>    
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<h1>무한스크롤</h1>
+<script>
+    // 페이지가 시작할 때 스크롤바를 맨 위에 올려 놓고 싶음!
+    // 크롬에서 스크롤바 위치 지정 주의!
+    // Google의 답변은 크롬엔진이 너무 빠르고 좋아서, 필요한 시점보다 빨리 실행되서 그런 것 -> 시간 지연 주기
+    setTimeout(()=>{
+        window.scrollTo(0,0);
+    },30);
+    
+    const fScroll = function(){
+        let scrollTop = document.documentElement.scrollTop;       // 위로 올라간 높이
+        let clientHeight = document.documentElement.clientHeight; // 사용자 눈에 보이는 화면높이
+        let scrollHeight = document.documentElement.scrollHeight; // 문서 전체 높이
+        
+        const tunningVal = 50;
+        // 스크롤바를 끝까지 내렸을 때!
+        if( (scrollTop  + clientHeight) >= (scrollHeight - tunningVal) ){
+            // 일반적으로 이곳에 AJAX를 이용해서 추가 데이터를 가져와 화면에 추가해줌
+            // 없으면 그것으로 끝!, 데이타가 추가 안되면, 스크롤바도 확장안됨!
+            
+            let addHtml = "";
+            for(let i=1; i<=10; i++){
+                addHtml += `<h1>무한스크롤 언제 끝날까요? ${i}</h1>`;
+            }
+            document.body.innerHTML += addHtml;  // 내용 추가!
+        }
+        
+        /* scrollTop  + clientHeight >= scrollHeight  스크롤바를 끝까지 내렸을 때
+        console.log("확인 구분선","=========================================");
+        console.log("scrollTop",scrollTop);
+        console.log("clientHeight",clientHeight);
+        console.log("scrollHeight",scrollHeight);
+        */
+    }
+    window.addEventListener("scroll",fScroll)
+</script>    
+</body>
+</html>
