@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    /*
+      static으로 기본 레이아웃을 잡고 나서 ,relative, absolute를 적절히 부분부분에 활용
+      부모 relative, 자식 absolute는 상당히 많이 사용되고, 유용함, 자식의 기준점이 부모 왼쪽모서리
+    */
+    #con {
+        position: relative;
+        width:300px;
+        height:300px;
+        border:1px solid pink;
+    }
+    .blk {
+        position: absolute;
+        left:0px; top:0px;
+        width: 300px;
+        height:300px;
+        border:1px solid black;
+    }
+    #blk1 {
+        z-index: 99;
+        background-color: blue;
+    }
+    #blk2 {
+        z-index: 1;
+        background-color: red;
+    }
+    #blk3 {
+        z-index: 1;
+        background-color: yellow;
+    }
+    #blk4 {
+        z-index: 1;
+        background-color: greenyellow;
+    }
+</style>
+</head>
+<body>
+<h1>시작</h1>
+<div id="con">
+    <div id="blk1" class="blk">
+        블록1
+    </div>
+    <div id="blk2" class="blk">
+        블록2
+    </div>
+    <div id="blk3" class="blk">
+        블록3
+    </div>
+    <div id="blk4" class="blk">
+        블록4
+    </div>
+</div>
+<script>
+const blks = document.querySelectorAll(".blk");
+
+// blk z-index 초기화 함수
+const initBlk = function(){
+    for(let i=0; i<blks.length; i++){
+        blks[i].style.zIndex = 1;
+    }
+}
+
+let sIndex = 0;
+const blkRotate = function(){
+    initBlk();  // 초기화 호출
+    /*
+    let ranIndex  = Math.floor(Math.random()*4); // 0~3
+    blks[ranIndex].style.zIndex= 999;
+    setTimeout(blkRotate,1000);  // 재귀호출 내가 나를 부름
+    */
+    sIndex++;
+    if(sIndex >= 4) {sIndex = 0};
+    blks[sIndex].style.zIndex= 999;
+    setTimeout(blkRotate,1000);  // 재귀호출 내가 나를 부름
+}
+setTimeout(blkRotate,1000);
+//blkRotate();  // 일단 한번 호출, 그 뒤엔 자동 재귀호출
+
+//setTimeout(blkRotate,1000);  // 함수호출과 함수포인터FP(함수이름) 헷갈리지 않게
+
+</script>    
+</body>
+</html>
