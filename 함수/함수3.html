@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 함수의 매개변수는 타입에 제약사항이 없다!
+// 함수가 return 하는 타입에 제약사항이 없다!  
+/* 
+콜백함수가 보통 비동기에서 결과 처리함수로 많이 사용되다보니 일부 사람들이 콜백함수를 비동기라고 하는데, 
+콜백함수 자체는 비동기와 관련없음
+*/
+function fCk(pArg){    // pArg = function(){ alert("나 함수")}
+   // alert(typeof(pArg));
+   pArg();
+}
+
+/*
+fCk(1);
+fCk("check");
+fCk(["A","B","C"]);
+fCk({name:"AAA"});
+*/
+fCk(function(){       // fCk() -> pArg - > pArg() -> 뒤에 호출된다고 해서 callback
+    alert("나 함수");
+})
+
+</script>
