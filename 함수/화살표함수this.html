@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 화살표 함수에서 this에 대한 제약
+// 제약조건을 외우지 말고, this제어가 필요하면 function키워드를 그냥 쓰는 것이 정신건강에 좋음!
+
+/*
+function 키워드로 만들어진 함수는 prototype(function에만 있음)속성을 가지는데
+()=> 로 만들어진 함수는 prototype속성을 안 가짐
+*/
+  
+const hi = {name:"박효신"};
+hi.msg1 = () =>{
+    console.log("msg1",this);  // 이렇게 function 키워드 사용을 권장
+}
+
+hi.msg2 = function(){
+    console.log("msg2",this);
+}
+
+hi.msg1.call({name:"성시경"});  // call,apply,bind도 적용 안됨!
+hi.msg2.call({name:"아이유"});
+
+</script>
