@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    function myFetch(){
+        return new Promise((res,rej)=>{
+            // 요 안에 비동기 아닌 걸 쓰는 건 의미가 없음
+            // 주로 AJAX를 사용, 일반 개발자가 이런 식으로 Promise를 리턴하는 걸 만들 일은 거의 없음!
+            res("성공");
+            //rej(new Error("실패"))
+        })
+    }
+
+    // async/await나 then/catch 
+
+    async function sohee(){
+        let response = await fetch('https://koreanjson.com/posts');
+        let postlist = await response.json(); //.text()
+        console.log("await",postlist);
+    }
+    sohee();
+
+
+    myFetch().then((rslt)=>{
+        console.log("OK:",rslt);
+    }).catch((err)=>{
+        console.log("NG",err);
+    }).finally(()=>{
+        // 서버 사이드 프로그램이 아니면, 거의 쓰이지 않음
+        console.log("그냥 실행");
+    })
+
+</script>
