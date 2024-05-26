@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+    [member]{
+        display: inline-block;
+        width:100px;
+        height:100px;
+        background-color: black;
+        color:yellow;
+    }
+    #acja, #acja2 {
+        width:420px;
+        height:100px;
+        border:20px groove pink
+    }
+</style>
+</head>
+<body>
+    <button onclick="f_mv()">이동</button>
+   <div id="acja">
+        <div member>A</div>
+        <div member>B</div>
+        <div member>C</div>
+        <div member>D</div>
+   </div> 
+
+   <div id="acja2">
+   </div>
+
+<script>
+    const colors =     ["yellow","blue", "pink"    ,"royalblue"];
+    const backColors = ["black" ,"red" , "magenta" ,"red"];
+    const gsAcja = document.querySelector("#acja");
+    const gsAcja2 = document.querySelector("#acja2");
+    for(let i=0; i < gsAcja.children.length; i++){
+         let child = gsAcja.children[i];
+         child.style.color = colors[i];
+         child.style.backgroundColor = backColors[i]; 
+    }
+
+    const f_mv = function(){
+        // appendChild를 이동으로 사용!
+        // gsAcja.appendChild(gsAcja.children[0]); // 첫째 자식 다시 붙이깅!
+        gsAcja2.appendChild(gsAcja.children[0]); // 첫째 자식 다시 붙이깅!
+    }
+</script>
+</body>
+</html>
