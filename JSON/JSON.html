@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// JSON -> JavaScript Object Notation (자바스크립트 객체 명명법)
+// [] 과 {} 을 의미  -> List,  Map(VO)  
+
+/*
+var name= "이디야";
+var testObj = {  // new Object()
+    "name":"복숭아 아이스티",     // 속성 추가
+    "alias":"맛있어요",          // 속성 추가
+    "getName":function(){       // 메소드 추가
+        return this.name;
+    }
+}
+*/
+
+// 속성 배열식 접근법 -> 꼭 알아야 함! -> 모르면 코드 전체 틀을 고쳐야 하는 불행한 상황이 발생!
+var name2 ="name";
+var testObj = {
+    [name2]:"스타벅스",
+    ["alias"]:"돌체 라떼",
+    ["getName"]:function(){
+        return this["name"];
+    }
+}
+
+console.log("체크:",testObj);
+
+/*
+var testObj = {};  // 빈 객체 생성
+testObj.name="컴포즈";
+testObj.alias="연유 딸기 라떼";
+testObj.getName = function(){
+     return this.name;
+}
+
+alert(testObj.getName());
+*/
+</script>
