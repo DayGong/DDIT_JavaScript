@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <div id="lettuce">
+        <div>상</div>
+        <div>추</div>
+    </div>
+    <div id="lettuce">적상추</div>
+    <div id="lettuce">청상추</div>
+    <div id="lettuce">꽃상추</div>
+    <input type="text" class="flower" value ="라벤더"><br>
+    <input type="text" class="flower" value ="제라늄"><br>
+    <input type="text" class="flower" value ="국화"><br>
+    <input type="text" class="flower" value ="개나리"><br>
+</body>
+<script>
+    // function -> class
+    // prototype -> 메모리 공유
+    // 즉각실행함수 -> 핵심코드 보호 및 초기화
+    // jQuery안의 callback 스타일
+    // 메소드 체인닝, return this -> 생성자 함수의 return this와 맥락상 구별!
+    // 읽기에는 메소드 체인닝을 일반적으로 구현하지 못함!
+
+    // jQuery 핵심 코아 부분!(간략버젼, 흐름 이해에는 충분!)
+   (function(){
+    const $ = function(cssSel){
+        return new myDom(cssSel);
+    }
+
+    const myDom = function(cssSel){
+        let domElems = document.querySelectorAll(cssSel); 
+        this.length = domElems.length;  
+        for(let i=0; i<this.length; i++){  // 그저 옮겨 담는 것 뿐임!  
+            this[i] = domElems[i];
+        }
+        return this; // class의 의미로(생성자로 쓰겠다는 명시적 표현)
+    }
+
+    window.$ = $; // 참조방식이어서 전역변수$나 지역변수$가 가리키는 값이 똑같음(함수)
+    $.fn = myDom.prototype; // 이게 밖으로 빠지면, 사용자도 쉽게 메소드 추가가 가능!
+})()
+
+// jQuery Plug-in 방식을 이용해서 필수 메소드 몇 개만 직접 만들어보기!
+// html(), innerHTML 속성을 편하게 제어해주는 메소드!
+// html() -> 읽기,  html("test")-> 전부 쓰기, html(function(pInx,pVal){}) -> 부분 조작
+
+//html메소드 직접 구현, overloading 없음, overriding만 있음
+$.fn.html = function(pArg){
+    // pArg가 안 넘어 왔을 때, 읽기 동작(여러개 있을 때는 무조건 첫번째 거)
+    // 보통 읽기(그 결과의 리턴값이 바로 필요할 때)에는 메소드 체인닝을 구현하지 않음
+    if(!pArg){
+        return this[0].innerHTML;
+    }
+
+    //pArg에 문자열이 넘어왔을 때, 전부 쓰기
+    if(typeof(pArg) == "string"){
+        for(let i=0; i<this.length; i++){
+            this[i].innerHTML = pArg;
+        }
+        return this; // 끝내기
+    }
+
+    //pArg에 function(콜백함수)이 넘어왔을 때,  부분조작
+    if(typeof(pArg) == "function"){
+        for(let i=0; i<this.length; i++){
+            // callback함수에서 this값을 편하게 쓰기 위해 call사용
+           this[i].innerHTML = pArg.call(this[i],i,this[i].innerHTML);
+        }
+        return this;  // 끝내긴 끝내는데, 메소드 체인닝을 위해, 현재 객체를 리턴!
+    }
+}
+
+// val method (value 속성 제어) 
+$.fn.val = function(pArg){
+    if(!pArg){
+        return this[0].value;
+    }
+
+    //pArg에 문자열이 넘어왔을 때, 전부 쓰기
+    if(typeof(pArg) == "string"){
+        for(let i=0; i<this.length; i++){
+            this[i].value = pArg;
+        }
+        return this; // 끝내기
+    }
+
+    //pArg에 function(콜백함수)이 넘어왔을 때,  부분조작
+    if(typeof(pArg) == "function"){
+        for(let i=0; i<this.length; i++){
+            // callback함수에서 this값을 편하게 쓰기 위해 call사용
+           this[i].value = pArg.call(this[i],i,this[i].value);
+        }
+        return this;  // 끝내긴 끝내는데데, 메소드 체인닝을 위해, 현재 객체를 리턴!
+    }
+}
+
+// style을 제어하는 css 메소드
+$.fn.css= function(pArg1, pArg2){  // 1:속성명(무조건), 2: 빈값, 해당속성의값, 콜백함수
+     if(!pArg2){
+        return this[0].style[pArg1];    // 읽기
+     }
+
+     if(typeof(pArg2)== "string"){     // 전부 쓰기
+        for(let i=0; i<this.length; i++){
+            this[i].style[pArg1] = pArg2;
+        }
+        return this;  // 메소드 체인닝
+     }
+
+     if(typeof(pArg2) == "function"){
+        for(let i=0; i<this.length; i++){
+            this[i].style[pArg1] = pArg2.call(this[i],i,this[i].style[pArg1]);
+        }
+        return this; // 메소드 체인닝
+     }
+
+}
+
+//
+$.fn.eq = function(pIndex){
+    // 박스를 그대로 쓰기위해서 선택된 것만 남기고, 나머지는 박스에서 버림
+    this[0] = this[pIndex];    // 요것만 남기고 
+    for(let i=1; i<this.length; i++){
+        delete this[i];
+    }
+    this.length = 1;
+    return this;
+}
+
+//console.log("체크: ",$("div")[1].val()); // 이렇게 쓰면 에러러
+//alert($("div").eq(1).html().end());
+
+$("div").css("color","blue");  // 전부쓰기
+
+/*  
+jQuery 사용시 주의 사항 
+편함을 위해서 성능적인 손해 감수!
+*/
+
+// 아래 처럼 쓰는 건 성능 최악의 코드 (jQuery를 이해하지 못한 코드)
+// 같은 박스를 2개 만듬
+// 제대로 쓰려면 변수로 받거나, 메소드 체인닝을 활용해야 함!
+/*
+$("div").html("확인1");
+$("div").html("확인2");
+*/
+
+//$("div").html("확인1").html("확인2")  -> 메소드 체인닝 활용
+
+// 변수 활용
+let $divs = $("div")
+$divs.html("확인1").html("확인2");
+
+//alert($("div").css("color")); //? -> 빈값
+
+$("div").css("color",function(pInx,pVal){
+    console.log(pInx, this);
+    if(pInx == 5){
+        return "green";
+    }
+    return "gray";
+}).html("<h1>안녕?</h1>");
+
+//alert($(".flower").val()); // 첫번째 텍스트의 value 읽기
+$(".flower").val("누가 꽃이지?")
+        .val(function(pInx, pVal){
+            if(pInx==2){
+                return "나야~";
+            }
+            return pVal;
+        })
+
+$("#lettuce").html(function(pInx,pHtml){
+    console.log("this는: ",this);
+    if(pInx == 1) {
+        return "<h1>최고야!</h1>";
+    }
+    return pHtml; // 수정하고 싶지 않은 건 온 그대로 되돌려 줌!
+}).html(function(pInx,pHtml){
+    if(pHtml == '춤추고') {
+        return pHtml + " 노래하는";
+    }
+    return pHtml; // 수정하고 싶지 않은 건 온 그대로 되돌려 줌!
+})
+//.html("<h1>멋쟁이 토마토</h1>");
+
+//alert($("#lettuce").html());  // 읽기
+//$("#lettuce").html("<h1>나는야 의기양양</h1>"); // 전부 쓰기
+</script>
