@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<div id="disp"></div>
+<script>
+const disp = document.querySelector("#disp");
+// 프론트 프레임워크에서 주로 쓰는 배열 메소드
+// map,filter, sort ...., every, some
+
+// 배열 클래스 생성
+function DArray(){
+    this.length = 0;
+
+    // 이곳에 메소드를 만들면, 생성되는 객체마다 개별로 똑같은 메소드를 가짐
+    // 비효율적 (왜? 메소드는 상태를 가지지 않기 때문에 굳이 따로 가지고 있을 필요가 없음)
+    return this;   // 없어도 됨!, 생략되어 있음!
+}
+
+// 명시적으로 prototype에 선언해 주면, 공유해서(마을회관) 사용하게 됨
+DArray.prototype.push = function(pArg){
+    this[this.length] = pArg;
+    this.length++;       // 갯수 증가
+    return this;         // 메소드 체인닝 완성!
+}
+
+// 자주 사용되는 메소드 map 구현
+DArray.prototype.map = function(pCB){  // pCB는 함수를 받을 것임
+    let newArr =[];  // 빈 배열 생성
+    for(let i=0; i< this.length; i++){
+         newArr[i] = pCB(this[i],i);     // pCB(개별값,인덱스) 호출
+    }
+    return newArr; 
+}
+
+DArray.prototype.filter = function(pCB){
+    let newArr = [];
+    for(let i=0; i< this.length; i++){
+        if(pCB(this[i],i)){        // 필터링 조건 참
+            newArr.push(this[i]);  // 그 경우만 새 배열에 담기!  
+        }
+    }
+    return newArr;
+}
+
+// sort 구현
+DArray.prototype.sort = function(pCB){
+    for(let j=0;j<this.length;j++){
+        for(let i=j+1; i < this.length;i++){
+            if(pCB(this[j],this[i]) > 0){  // function(a,b)
+                let temp = this[j];
+                this[j] = this[i];
+                this[i] = temp;
+            }
+        }
+    }
+}
+
+let testArr = new DArray();
+testArr.push({name:"A",age: 30})
+       .push({name:"B",age: 10})
+       .push({name:"C",age: 60})
+       .push({name:"D",age: 20})
+       .push({name:"E",age: 40});
+
+console.log("복사본 체크:",structuredClone(testArr));
+// 만든 sort 기능 확인
+testArr.sort((p,q)=>{
+    if(p.name > q.name){
+        return 100;
+    }
+    return -100;
+})
+console.log("정렬:",testArr);
+
+/*
+let SArray = [5,11,2,8,5,3,9];
+let HArray = [
+    {name:"A",age: 30},
+    {name:"B",age: 40},
+    {name:"C",age: 100},
+    {name:"D",age: 11},
+    {name:"E",age: 21}
+]
+*/
+// 원래 지원되는 sort 확인
+//alert(SArray.sort().reverse()); // 이상한게 아니고, 글자로 인식(안 숫자)
+
+/*
+HArray.sort(function(a,b){
+    //console.log("a=>",a," b=>",b)
+    //return a.age - b.age;
+    
+    if(b.name > a.name){
+        return 1;    // 무조건 양수면 OK
+    }
+    return -1;       // 음수, 0도 포함
+    
+})
+console.log(HArray); // 정렬 결과
+*/
+
+// 보통 최대값 고르기 
+// let maxVal = SArray[0];  // 항상 <가정>이 들어감!
+
+// for문 자체를 반복 시켜줄 바깥 for문
+// 이렇게 해서 bubble 정렬 완성!
+/*
+for(let j=0;j<SArray.length;j++){
+
+    for(let i=j+1; i < SArray.length;i++){
+        if(SArray[j] > SArray[i]){
+            // 자리 체인지
+            let temp = SArray[j];
+            SArray[j] = SArray[i];
+            SArray[i] = temp;
+        }
+    }
+    
+}
+*/
+//alert(SArray);  // 체크!
+
+/*
+let hi = new DArray();
+hi.push("안녕").push("하세요").push("반가워요");
+
+let filterArr = hi.filter(function(item, index){
+    if(index >=1){
+        return true;
+    }
+    return false;    
+});
+
+console.log("확인",filterArr);
+console.log("원본",hi);
+*/
+
+/*
+hi.map(function(item,index){
+    disp.innerHTML += `<h1>${item}</h1>`;
+    return item;   // 원래 배열값은 그대로 지키기
+})
+
+*/
+//console.log("체크:",hi);
+
+let hello = new DArray();
+hello.push("좋은 하루");
+hello.push("즐거운 날");
+
+//console.log("체크1",hi);
+//console.log("체크2",hello);
+
+</script>
