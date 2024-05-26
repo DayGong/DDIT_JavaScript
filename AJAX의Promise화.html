@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // AJAX Promise화, 단순 URL만 넘기는 get
+    const ajaxGet = url => {
+        return new Promise((resolve,reject)=>{
+            let xhr = new XMLHttpRequest();
+            xhr.open("get",url,true);
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    resolve(xhr.responseText);
+                }
+            }
+            xhr.send();   // 빼먹으면 아무 일 안함!
+        })
+    }
+
+    // Promise를 return하는 fetch를 조금 변형(결과를 다시 await해야 하는 불편함)
+    const smFetchGeJSON = async url => {
+        let response = await fetch(url);
+        let result = await response.text();
+        //return result;    //  이 사용법은 별로 좋지않음, Pending
+        fRsltProcess(result);     
+    }
+
+    // 실행 테스트
+    const fTest = async (url) =>{
+       let result = await ajaxGet(url);
+       console.log("체크1 :",result);
+    }
+    fTest("./AJAX/test.txt");
+
+
+    // 결과 처리할 함수
+    const fRsltProcess = result => {
+        console.log("여기서 데이터 처리");
+        console.log("처리할 데이터: ",result);
+    }
+
+    smFetchGeJSON("./AJAX/test.txt");  // 호출
+
+</script>
