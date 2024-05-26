@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+var testArr = {
+    length:0
+}
+
+testArr.push = function(pVal){
+    this[this.length] = pVal;
+    this.length++;
+}
+
+testArr.remove = function(pKey){
+    // 객체 속성 지울 때는 delete 키워드 사용
+    delete this[pKey];
+}
+
+testArr.push("A");
+testArr.push("B");
+testArr.push("C");
+
+testArr.remove(1);
+
+console.log("체크: ",testArr);
+
+/*
+    // [] < {}
+    var test = {};  // 빈 객체 생성
+   // test.0 = "a"; // why?, 바로 숫자로 시작하면 변수명 규칙에 위배
+   test["0"] = "a";
+   test["1"] = "b";
+   test["2"] = "c";
+
+   console.log("체크: ",test);
+*/
+</script>
