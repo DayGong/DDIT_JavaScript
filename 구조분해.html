@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 구조분해도 프론트 프레임워크나 라이브러리에선 미친 듯이 사용됨!
+let testArr = ["A","B","C","D"];
+
+let [,aaa,...hi] = testArr;
+//alert("체크: "+hi);
+//alert(aaa + "반가워요");
+
+const ice = {
+    name:"얼음",
+    age:90,
+    level:1
+}
+
+let {level,age} = ice;
+//alert(level);
+//alert(age);
+
+const test = ["아메리카노",{name:"스타벅스"}];
+let [,{name}] = test;
+alert("체크: " + name);
+
+</script>
