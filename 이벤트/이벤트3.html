@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <a href="//daum.net" onclick="fMove()">네이버</a>
+<script>
+    const fMove = function(){
+        event.preventDefault();  // 디폴트 built-in 기능 막기
+        //event.stopPropagation();
+        alert("저 보이죠?");
+    }
+</script>    
+</body>
+</html>
