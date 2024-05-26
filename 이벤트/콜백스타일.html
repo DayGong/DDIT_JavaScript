@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    // 간단한 배열 흉내
+    var testArr = {
+        length:0,
+        push:function(pArg){
+            this[this.length] = pArg
+            this.length++;
+        }
+    }
+
+    testArr.forEach = function(pCallback){
+        for(var i=0; i<this.length; i++){
+           // console.log("확인: ",i,this[i]);
+           // 개별처리 함수호출, 상황에 따라 다른 함수가 오도록, 그렇다면 매개변수 처리
+           pCallback(i,this[i]);  // 매개변수로 받은 함수 호출
+        }
+    }
+    testArr.push("A");
+    testArr.push("B");
+    testArr.push("C");
+    testArr.push("D");
+
+    testArr.forEach(function(pIndex,pValue){
+        //console.log("index:",pIndex," 값:",pValue);
+        if(pIndex == 1){
+            alert("index 1만 처리하고싶은 경우 그값은 "+pValue );
+        }
+    });
+
+    testArr.forEach(function(pIndex,pValue){
+        //console.log("index:",pIndex," 값:",pValue);
+        if(pValue == "C"){
+            alert(pValue + "안녕");
+        }
+    });
+
+ // console.log("확인: ",testArr);
+
+</script>
