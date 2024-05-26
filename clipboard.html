@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <h1>clipboard API</h1>
+    <input type="file"  id="mfile" value="" onchange="fChg(this.files[0])"><br>
+        <input type="text" id="aaa" value="Test"><br>
+        <button id="copyButton">복사</button><br>
+        <button id="pasteButton">붙여넣기</button>
+        <div contenteditable>
+            클립보드 테스트
+        </div>
+        <textarea id="disp"></textarea>
+<script>
+function fChg(mfile){
+    console.log(mfile);
+}
+
+const aaas = document.querySelectorAll("#aaa");
+
+copyButton.addEventListener('click',async ()=>{
+    let copyPromise =  await navigator.clipboard.writeText(aaas[Math.floor(Math.random()* aaas.length)].value)
+     
+    // 문서엔 Promise라 되어 있는데 실제는 undefined로 찍힘
+     console.log(copyPromise);  
+})
+
+pasteButton.addEventListener('click', async () => {
+     const text = await navigator.clipboard.readText();
+     document.querySelector('textarea').value += text;
+});    
+</script>
+</body>    
