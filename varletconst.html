@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// F12 Tool console의 문제
+
+var testArr = {name:"홍길동",age:30};
+console.log(testArr);
+
+// 디버깅에 활용하면 좋은 structuredClone
+var testArr2 = structuredClone(testArr); // 객체 복사 명령어
+testArr2.age = 9999;
+console.log(testArr2);
+
+// var, let , const 의 차이
+// let, const는 나중에 추가 됨(다른 언어들과의 호환성 issue로 추가됨)
+// scope(범위)의 문제(차이);
+
+// let의 범위을 한정짓는 것은  {}  => 다른 언어와 일치(java)
+// var의 범위를 한정짓는 것은 function 키워드
+
+/*
+const bestOfbest="최고";
+//bestOfbest = "최선";  // 에러
+
+var bestFriend = {name:"푸"}; // 객체({}나[])에 본드칠을 해 놓았다고 생각!
+bestFriend.name="피글렛"; // 내용물은 바꿀 수 있음
+
+console.log("체크:",bestFriend);
+
+bestFriend = {}; // 에러!! 객체 자체는 못 바꿈
+*/
+</script>
