@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage 간략 활용</title>
+</head>
+<body>
+    <div id="disp">
+        <table border="1">
+            <thead>
+                <tr><th>순번</th><th>이름</th><th>나이</th><th>별명</th></tr>
+            </thead>
+            <tbody id="tblBody"></tbody>
+        </table>
+    </div>
+<script>
+    // 전역 변수, 함수 설정 영역
+    const tblBody = document.querySelector("#tblBody");
+    // 페이지 시작되자 마자 리스트 출력
+    const tblName = "tb_member";  // key값
+    let tblRows =  JSON.parse(localStorage.getItem(tblName));
+    let tbodyStr = "";
+
+    // tr 위에 마우스 올라왔을 때
+    const fover = function(pThis){
+        pThis.style.backgroundColor="black";
+        pThis.style.color="white";
+    }
+
+    // tr 위에서 마우스 벗어났을 때
+    const fout = function(pThis){
+        pThis.style.backgroundColor="white";
+        pThis.style.color="black";
+    }
+
+    // 리스트 출력 함수
+    let pageNum = 1;   // 디폴트 값
+    let pageSize = 20; // 페이지당 10개
+    let startNum =   (pageNum -1)*pageSize;
+    let endNum = startNum + pageSize;
+
+    // 스크롤바 기본 맨위로 올리기!
+    setTimeout(()=>{
+        window.scrollTo(0,0);
+    },30)
+
+    const flist = function(pStartNum,pEndNum){
+        tbodyStr = "";    // 추가 내용 담을 문자열 변수
+        for(let i=pStartNum; i<pEndNum; i++){
+            console.log("체크:",i);
+            let row = tblRows[i];
+            tbodyStr += `
+                <tr onmouseover='fover(this)' onmouseout='fout(this)'>
+                    <td>${i}</td>
+                    <td>${row.name}</td>
+                    <td>${row.age}</td>
+                    <td>${row.alias}</td>
+                </tr>`;
+        }
+        tblBody.innerHTML += tbodyStr;  // 화면에 출력
+    }
+    flist(startNum,endNum);
+
+    // 무한 스크롤 적용
+    const fScroll = function(){
+        let scrollTop = document.documentElement.scrollTop; 
+        let clientHeight = document.documentElement.clientHeight; 
+        let scrollHeight = document.documentElement.scrollHeight;
+    
+        const tunningVal = 50;
+        if( (scrollTop  + clientHeight) >= (scrollHeight - tunningVal) ){
+            pageNum++;
+            startNum =   (pageNum -1)*pageSize;
+            endNum = startNum + pageSize;
+
+            // 마지막 index번호 체크 필요!
+            if(endNum >= tblRows.length){
+                endNum = tblRows.length;
+            }
+            
+            flist(startNum,endNum);  // 리스트 함수 호출
+        }
+    }
+
+    window.addEventListener("scroll",fScroll); 
+</script>
+</body>
+</html>
