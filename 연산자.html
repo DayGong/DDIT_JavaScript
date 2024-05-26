@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+    var i=10;
+    
+    //var ck1 = i++;
+    var ck1 = i;  // 10 
+    i= i+1;       // 11
+
+    //var ck2 = ++i;
+    i= i+1;      // 12
+    var ck2 = i; // 12
+
+  //  alert("ck1:"+ck1); // 11
+  //  alert("ck2:"+ck2); // 12
+
+  // or -> ||, and -> &&
+  // 참일 가능성이 높은 것 || 참일 가능성이 낮은 것
+  // 거짓일 가능성이 높은것 && 거짓일 가능성이 낮은 것
+
+  // 연산 우선 순위 외우지말고 ()를 잘 활용
+  
+  // || 을 이용한 초기화
+  /*
+  function fCk(pArg1, pArg2){
+     var ck1 = pArg1 || "hi";
+     var ck2 = pArg2 || "bye";
+     console.log("ck1",ck1);
+     console.log("ck2",ck2);
+  }
+  */
+
+  function fCk(pArg1="hi", pArg2="bye"){ // 매개변수에 초기값 할당!
+     console.log("pArg1",pArg1);
+     console.log("pArg2",pArg2);
+  }
+
+  fCk();
+  fCk("아메리카노","스무디");
+
+</script>
