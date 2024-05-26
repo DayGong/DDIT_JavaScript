@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// 함수의 return 타입에도 제약 사항이 없다!   
+
+function fTest(){
+    return {
+        '+':function(p1,p2){return p1+p2},
+        '-':function(p1,p2){return p1-p2},
+        '*':function(p1,p2){return p1*p2},
+        '/':function(p1,p2){return p1/p2},
+    }
+}
+
+// 위 fTest함수의 리턴값을 이용해서 7+7을 표현하면?
+console.log(fTest()["+"](7,7));
+
+/*
+var cal = function(pOp){
+    if(pOp == "+"){
+        return function(p1,p2){
+            return p1 + p2;
+        }
+    }
+    if(pOp == "-"){
+        return function(p1,p2){
+            return p1 - p2;
+        }
+    }
+}
+var minus = cal("-")(7,4);
+alert(cal("+")(3,minus));
+*/
+</script>
