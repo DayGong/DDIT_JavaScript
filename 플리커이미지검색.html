@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" id="txtSch" value=""><button onclick="fSch()">껌색</button>
+<hr>
+<div id="disp"></div>
+<script>
+// URL 상수
+const preURL = "https://www.flickr.com/services/feeds/photos_public.gne?tags=";
+const postURL = "&format=json";    
+// 정적 element는 전역변수로 둬야 찾은 걸 또 찾는 반복적 낭비 작업이 없어짐!
+const txtSch = document.querySelector("#txtSch");    
+const myDisp = document.querySelector("#disp");
+
+// 버튼 눌렀을 때!
+const fSch = function(){
+    let schURL = `${preURL}${txtSch.value}${postURL}`; // 플리커 URL 완성!
+    let scrTag = document.createElement("script");     // 스크립트 태그 생성
+    scrTag.src = schURL;
+    document.head.appendChild(scrTag); // head와 body는 문서에 오직 1개만 있어야 해서 바로 쓸 수 있음
+
+}
+// 호출되는 함수를 미리 만들어 둠
+const jsonFlickrFeed = function(pData){
+    console.log(pData);
+    myDisp.innerHTML = ""; // $("").empty() 또는 $("").html("")
+    let recvItems = pData.items;
+    for(let i=0; i<recvItems.length; i++){
+        let item = recvItems[i];
+
+        //이미지 생성
+        let myImg = document.createElement("img");
+        myImg.src = item.media.m;
+        myDisp.appendChild(myImg);  // 이렇게 해야 눈에 보임!
+
+        //console.log(item.media.m);
+    }
+}  
+/*
+  이렇게 데이타를 주는 것을 JSONP라 부름 JSON PADDING
+  CROSS-ORIGIN 제약사항에서 자유로움
+  하지만 서비스 하는 쪽에서 이런식의 서비스를 지원해주어야만 사용할 수 있음!
+*/
+</script>
+<script src="https://www.flickr.com/services/feeds/photos_public.gne?tags=강아지&format=json"></script>
+</body>
+</html>
