@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<body>
+    <h1>이벤트</h1>
+    <!-- inline 이벤트 등록 , 디버깅에 유리 -->
+    <button onclick="fClick(this)">버튼1</button><br>
+    <button id="btn2">버튼2</button><br>
+    <div style="border:1px solid black" onclick="fCk()">
+        <span>버튼3</span>
+    </div>
+</body>
+<script>
+const fCk = function(){
+    console.log(event.target); // 이벤트를 발생시킨 애를 가리킴
+   // console.log(event.currentTarget); // 이벤트를 등록시킨 애
+}
+
+const myBtn2 = document.querySelector("#btn2");   
+  
+// 이벤트 등록법 3가지
+const fClick = function(pThis){
+    console.log(pThis);
+    myBtn2.addEventListener("click",function(){   // jQuery의 on("이벤트명",함수)에 해당!
+        alert("누구일까요?");
+    })
+}
+
+/* 등록법2 , 재정의 한 것이 이전 것을 덮어 버림
+myBtn2.onclick = function(){
+    alert("나야 버튼2");
+}
+
+myBtn2.onclick = function(){
+    alert("무슨 소리야 내가 버튼2야");
+}
+
+// 등록법3, 권장 방식
+myBtn2.addEventListener("click",function(){   // jQuery의 on("이벤트명",함수)에 해당!
+    alert("권장 방식입니다!");
+})
+
+myBtn2.addEventListener("click",function(){
+    alert("이렇게 해보세요!");
+})
+*/
+</script>
