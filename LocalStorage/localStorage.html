@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// Cookie 대신 사용 가능, 이미 그렇게 많이 사용
+// 문자열만 저장가능 -> 제약사항
+// 언제 쓰면 좋은가? 서버에 저장할 필요가 없는 데이타
+// 상황에 따라선, 버퍼로 사용해서 성능 향상을 시킬 수도 있음!
+
+// 제한사항: Object를 직접 저장할 수 없음, 오직 string만 저장가능!
+// localStorage.setItem("check",{name:"테스트",alias:"확인"});
+// alert({name:"테스트",alias:"확인"});
+
+//객체를 저장할 때는 꼬옥 문자열로 변환(시리얼라이즈)해서 저장해야 함
+//JSON.stringify
+
+localStorage.setItem("check",JSON.stringify({name:"테스트",alias:"확인"}))
+localStorage.setItem("check2",JSON.stringify(["상","추","농","장","null"]));
+//alert(typeof(localStorage.getItem("check2")));
+
+// 객체 문자열이 저장되어 있을 때, 그 일부 속성만 변경하려 할 때
+// 실제로는 그 객체를 전부 다시 문자열화해서 저장해야 함!(수정 => 덮어쓰기)
+
+let check2Arr = JSON.parse(localStorage.getItem("check2"));  // 먼저 읽어서 -> JSON으로 변환
+check2Arr[3] = "수정";  // 메모리상의 수정
+// 메모리상의 데이타를 localStorage(하드디스크)에 저장
+localStorage.setItem("check2", JSON.stringify(check2Arr)); 
+    
+
+// localStorage vs sessionStorage
+// 영구저장          일시저장(브라우져에서 나가면 지워짐)
+// 사용법은 100% 일치
+// cookie보다 사용법이 쉽고 용량도 커서 점점 더 많이 사용됨!
+// PWA(Progressive Web Application)의 일부라 할 수 있음
+// 객체지향 DB모양(JSON기반)으로 많이 만들어 씀
+// 크롬기준으로는 사이트당 5M 정도
+
+/*  기본 제공 명령어!
+localStorage.setItem("짝꿍","짱구"); // 쓰기
+localStorage.setItem("name","맹구"); // 덮어쓰기, 수정
+// localStorage.merong="";
+
+localStorage.removeItem("name");       // 지우기
+// alert(localStorage.getItem("짝꿍"));
+// alert(localStorage.length);
+// localStorage.clear(); // 싹 지우기
+*/
+</script>
