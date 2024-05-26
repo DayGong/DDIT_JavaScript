@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<script>
+// for, while
+// 무한루핑할 땐 무조건 빠져 나오는 종료 조건을 먼저 생각!
+var i=1;  // 초기치
+for(;"무한루핑";){   // while(true) 와 똑같은 표현
+    i++;
+    if(i==5) continue;  // ? 위치에 따라 크게 영향을 주니 주의!
+    if(i==10){
+        console.log("종료");
+        break;  // 종료
+    }
+}
+alert("i="+i); // ??
+
+</script>
