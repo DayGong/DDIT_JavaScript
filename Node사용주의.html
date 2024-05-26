@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Node사용주의 -> Element를 사용</title>
+</head>
+<body>
+    <div id="bear">
+        <h1>불곰</h1>
+        <h1>북극곰</h1>
+        <h1>판다</h1>
+        <h1>반달가슴곰</h1>
+    </div>
+<script>
+    // 속성명에 Node라고 들어가 있는 건 사용시 주의 필요!
+    const bear = document.querySelector("#bear");
+    console.log("node",bear.childNodes.length);
+    console.log("node",bear.childNodes[0]);
+    console.log("node",bear.children.length);
+    console.log("element",bear.children[0]);
+
+</script>
+</body>
+</html>
