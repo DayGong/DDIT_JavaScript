@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    첫번째<input type="text" id="txt1"><button onclick="fck1()">체크1</button><br>
+    두번째<input type="text" id="txt2"><button onclick="fck2()">체크2</button><br>
+    <select  id="sel1">
+        <option value="교장" selected >교장</option>
+        <option value="주임">주임</option>
+        <option value="교사">교사</option>
+        <option value="교감">교감</option>
+    </select>
+    <hr>
+    <select id="sel2" onchange="fchg(this)">
+        <option value="교장" selected>교장</option>
+        <option value="주임">주임</option>
+        <option value="교사">교사</option>
+        <option value="교감">교감</option>
+    </select>
+<script>
+    const gsTxt1 = document.querySelector("#txt1");
+    const gsTxt2 = document.querySelector("#txt2");
+    const gsSel1 = document.querySelector("#sel1");
+    const gsSel2 = document.querySelector("#sel2");
+
+    const fck1 = function(){
+        gsSel1.value = gsTxt1.value;
+    }
+
+    const fck2 = function(){
+        gsSel2.value = gsTxt2.value;
+    }
+
+    const fchg = function(pThis){
+        // 아래처럼 간략하게 쓸 수 있게 추가 됨!
+        gsSel1.value = pThis.value;    
+        
+        /* 원래는 이렇게 써야만 했었음
+        for(let i=0; i<gsSel1.options.length; i++ ){
+            if(gsSel1.options[i].value ==  pThis.options[pThis.selectedIndex].value ){
+                gsSel1.options[i].selected = true;
+                break;
+            }
+        }
+        */
+    }
+
+</script>
+</body>
+</html>
